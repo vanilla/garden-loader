@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Garden Loader Tests</title>
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+</head>
+<body>
+<div id="mocha"></div>
+<script src="../node_modules/mocha/mocha.js"></script>
+<script src="../node_modules/chai/chai.js"></script>
+<script>mocha.setup('bdd')</script>
+
+<!-- load code you want to test here -->
+<script src="../garden-loader.js"></script>
+<script>
+  System.baseURL = 'fixtures';
+</script>
+
+<!-- load your test files here -->
+<script src="basic.js"></script>
+<script src="amd.js"></script>
+<script src="es6.js"></script>
+<script src="external.js"></script>
+<script src="mixed.js"></script>
+
+<script>
+  var runner = mocha.run();
+
+  var failedTests = [];
+  runner.on('end', function () {
+    window.mochaResults = runner.stats;
+    window.mochaResults.reports = failedTests;
+  });
+
+  runner.on('fail', logFailure);
+
+  function logFailure(test, err) {
+
+    var flattenTitles = function (test) {
+      var titles = [];
+      while (test.parent.title) {
+        titles.push(test.parent.title);
+        test = test.parent;
+      }
+      return titles.reverse();
+    };
+
+    failedTests.push({
+      name: test.title,
+      result: false,
+      message: err.message,
+      stack: err.stack,
+      titles: flattenTitles(test)
+    });
+  }
+</script>
+</body>
+</html>
