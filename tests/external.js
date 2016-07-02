@@ -5,10 +5,16 @@ describe('External Registry', function () {
         assert.isUndefined(System.get('asdf'));
     });
 
-    it('System.set() should match System.get().', function () {
+    it('System.set() should match System.get() for objects.', function () {
         var val = {a: true};
         System.set('ss', val);
         assert.equal(val, System.get('ss'));
+    });
+
+    it('System.set() should box non-objects.', function () {
+       var f = function () { return 123; };
+        System.set('f', f);
+        assert.equal(System.get('f').default, f);
     });
 
     it('System.has() should work on set modules.', function () {

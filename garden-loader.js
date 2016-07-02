@@ -65,8 +65,13 @@
         return mod && mod.exports;
     }
 
-    function set(name, values) {
-        externalRegistry[name] = values;
+    function set(name, exports) {
+        // Box the default in the case that module.exports has been set.
+        if (typeof exports != 'object') {
+            exports = {default: exports};
+        }
+
+        externalRegistry[name] = exports;
     }
 
     function get(name) {
@@ -405,7 +410,7 @@
         register: register,
         amdDefine: define,
         amdRequire: function (deps, callback) {
-            importModule(deps).spread(callback);
+            System.importAll(deps).spread(callback);
         }
     };
 
