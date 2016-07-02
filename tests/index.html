@@ -21,6 +21,13 @@
 <script src="../garden-loader.js"></script>
 <script>
   System.baseURL = 'fixtures';
+
+  if (!console) {
+    console = {
+      log: function () {
+      }
+    };
+  }
 </script>
 
 <!-- load your test files here -->
