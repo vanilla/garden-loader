@@ -242,7 +242,7 @@
         if (node.async) {
             node.async = false;
         }
-        if (ie) {
+        if (false && ie) {
             node.onreadystatechange = function () {
                 if (/loaded|complete/.test(this.readyState)) {
                     this.onreadystatechange = null;
