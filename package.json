@@ -2,6 +2,16 @@
   "name": "garden-loader",
   "version": "1.0.0",
   "description": "A minimal system.js and AMD compatible module loader.",
+  "keywords": [
+    "es6",
+    "amd",
+    "module",
+    "loader",
+    "system",
+    "register"
+  ],
+  "homepage": "https://github.com/vanilla/garden-loader",
+  "bugs": "https://github.com/vanilla/garden-loader/issues",
   "scripts": {
     "build": "grunt",
     "watch": "grunt watch"
@@ -10,8 +20,15 @@
     "type": "git",
     "url": "git+https://github.com/vanilla/garden-loader.git"
   },
-  "author": "Todd Burry",
+  "author": {
+    "name": "Todd Burry",
+    "email": "todd@vanillaforums.com"
+  },
   "license": "MIT",
+  "file": [
+    "garden-loader.js",
+    "garden-loader.min.js"
+  ],
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-systemjs": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
@@ -22,6 +39,7 @@
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^1.0.1",
     "grunt-contrib-watch": "^1.0.0",
     "load-grunt-tasks": "^3.5.0",
     "mocha": "^2.5.3",

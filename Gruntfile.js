@@ -68,8 +68,37 @@ module.exports = function (grunt) {
                 src: 'tests/fixtures/es6/bundle/*.js',
                 dest: 'tests/fixtures/es6/named.js'
             }
-        }
+        },
+        uglify: {
+            options: {
+                mangle: true,
+                beautify: false,
+                compress: {
+                    sequences: true,
+                    properties: true,
+                    dead_code: true,
+                    conditionals: true,
+                    booleans: true,
+                    loops: true,
+                    unused: true,
+                    hoist_funs: true,
+                    if_return: true,
+                    join_vars: true,
+                    cascade: true,
+                    collapse_vars: true,
+                    warnings: false,
+                    negate_iife: true,
+                    pure_getters: true,
+                    drop_console: true
+                }
+            },
+            dist: {
+                files: {
+                    "garden-loader.min.js": ['garden-loader.js']
+                }
+            }
+        },
     });
 
-    grunt.registerTask('default', ['clean', 'babel', 'concat']);
+    grunt.registerTask('default', ['clean', 'babel', 'concat', 'uglify']);
 };
