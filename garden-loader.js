@@ -242,7 +242,6 @@
         if (script.async) {
             script.async = false;
         }
-        script.src = src;
 
         // Check the script's ability to see the load callback.
         // https://msdn.microsoft.com/en-us/library/hh180173(v=vs.85).aspx
@@ -258,18 +257,16 @@
         // }
         if (ie) {
             script.onreadystatechange = function () {
-                if (this.readyState == 'loaded') {
+                if (this.readyState == 'complete') {
                     this.onreadystatechange = null;
-                    headEl.appendChild(script);
                     callback();
                 }
             };
         } else {
             script.addEventListener("load", callback, false);
-            headEl.appendChild(script);
         }
 
-        // script.src = src;
+        script.src = src;
         headEl.appendChild(script);
     }
 
