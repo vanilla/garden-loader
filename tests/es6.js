@@ -1,8 +1,6 @@
 var assert = chai.assert;
 
 describe('ES6 Loading', function () {
-    this.timeout(5000);
-
     it('System.import() should import anonymous ES6 modules.', function () {
         return System.import('es6/anon').then(function (mod) {
             assert.equal(mod.default, 'es6/anon');

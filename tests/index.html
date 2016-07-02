@@ -25,6 +25,7 @@
 <script src="mixed.js"></script>
 
 <script>
+  mocha.setup({timeout: 15000});
   var runner = mocha.run();
 
   var failedTests = [];
