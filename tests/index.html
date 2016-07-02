@@ -15,8 +15,20 @@
     timeout: 15000
   });
 
-  window.console = console || {};
-  window.console.log = console.log || function () { };
+  if (!(window.console && console.log)) {
+    console = {
+      log: function () {
+      },
+      debug: function () {
+      },
+      info: function () {
+      },
+      warn: function () {
+      },
+      error: function () {
+      }
+    };
+  }
 </script>
 
 <!-- load code you want to test here -->
