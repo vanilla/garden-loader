@@ -1,6 +1,8 @@
 var assert = chai.assert;
 
 describe('AMD Loading', function () {
+    this.timeout(5000);
+    
     it('System.import() should import anonymous AMD modules.', function () {
         return System.import('amd/anon').then(function (mod) {
             assert.equal(mod.default, 'amd/anon');
