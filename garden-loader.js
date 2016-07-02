@@ -90,7 +90,7 @@
             exports = Object.create(null),
             mod, meta;
         // Creating a new entry in the internal registry.
-        console.log("System.register(%s, %o, %o)", name, deps, wrapper);
+        console.log("System.register(%s, %o)", name, deps);
         internalRegistry[name] = mod = {
             // live bindings
             // proxy: proxy,
