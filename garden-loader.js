@@ -80,7 +80,7 @@
 
     function register(name, deps, wrapper) {
         if (Array.isArray(name)) {
-            console.log('System.register(anonymous, %o)', deps);
+            console.log('System.register(anonymous, %o)', name);
             // anounymous module.
             anonymousEntry = [register];
             anonymousEntry.push.apply(anonymousEntry, arguments)
