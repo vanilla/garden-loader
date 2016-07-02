@@ -54,7 +54,7 @@
     var internalRegistry = Object.create(null);
     var externalRegistry = Object.create(null);
     // Contains define arguments for anonymous modules.
-    var anonymousEntry;
+    var anonymousEntries = [];
 
     function ensuredExecute(name) {
         var mod = internalRegistry[name];
@@ -78,12 +78,23 @@
         return !!externalRegistry[name] || !!internalRegistry[name];
     }
 
+    /**
+     * Queue an anonymous module registration.
+     *
+     * @param {function} callback The callback used to register the module, either register or define.
+     * @param {Arguments} args
+     */
+    function queueAnonymous(callback, args) {
+        var entry = [callback];
+        entry.push.apply(entry, args);
+        anonymousEntries.push(entry);
+    }
+
     function register(name, deps, wrapper) {
         if (Array.isArray(name)) {
             console.log('System.register(anonymous, %o)', name);
-            // anounymous module.
-            anonymousEntry = [register];
-            anonymousEntry.push.apply(anonymousEntry, arguments)
+            // Anonymous module.
+            queueAnonymous(register, arguments);
             return; // breaking to let the script tag to name it.
         }
         var // proxy = Object.create(null),
@@ -154,8 +165,7 @@
     function define(name, deps, factory) {
         if (Array.isArray(name) || typeof name === 'function') {
             // This is an anonymous module and will be named later when the script's load event returns.
-            anonymousEntry = [define];
-            anonymousEntry.push.apply(anonymousEntry, arguments);
+            queueAnonymous(define, arguments);
             return; // breaking to let the script tag to name it.
         }
         // Check for a module with no dependencies.
@@ -287,11 +297,11 @@
 
                     // The script has loaded, remove the lock.
                     delete loading[name];
-                    if (anonymousEntry) {
+                    if (anonymousEntries.length) {
                         // Call the specific registration function that was first called by the anonymous module.
                         // This should be either register() or define().
+                        var anonymousEntry = anonymousEntries.shift();
                         anonymousEntry[0].call(this, name, anonymousEntry[1], anonymousEntry[2]);
-                        anonymousEntry = undefined;
                     }
                     // The module should be in the internal registry by now.
                     var mod = internalRegistry[name];
