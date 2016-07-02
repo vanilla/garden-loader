@@ -20,7 +20,7 @@
     'use strict';
 
     var headEl = document.getElementsByTagName('head')[0],
-        ie = /MSIE 9/.test(navigator.userAgent);
+        ie = false; // /MSIE 9/.test(navigator.userAgent);
 
     /**
      * Normalize a relative module name.
@@ -258,7 +258,7 @@
         // }
         if (ie) {
             script.onreadystatechange = function () {
-                console.log('onreadystagechange', this.readyState);
+                console.log('onreadystagechange: ', this.readyState);
                 if (this.readyState == 'complete') {
                     this.onreadystatechange = null;
                     callback();
@@ -283,6 +283,8 @@
             console.log('load(%s)', name);
             loading[name] = new Promise(function (resolve, reject) {
                 createScriptNode((System.baseURL || '') + '/' + name + '.js', function (err) {
+                    console.log('loadComplete(%s)', name);
+
                     // The script has loaded, remove the lock.
                     delete loading[name];
                     if (anonymousEntry) {
