@@ -19,8 +19,7 @@
 (function (exports) {
     'use strict';
 
-    var headEl = document.getElementsByTagName('head')[0],
-        ie = /MSIE/.test(navigator.userAgent);
+    var headEl = document.getElementsByTagName('head')[0];
 
     /**
      * Normalize a relative module name.
@@ -255,17 +254,7 @@
                 }
             };
         }
-
-        // if (false && ie) {
-        //     script.onreadystatechange = function () {
-        //         if (/loaded|complete/.test(this.readyState)) {
-        //             this.onreadystatechange = null;
-        //             callback();
-        //         }
-        //     };
-        // } else {
-        //     script.onload = script.onerror = callback;
-        // }
+        
         script.setAttribute('src', src);
         headEl.appendChild(script);
     }
