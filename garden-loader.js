@@ -248,14 +248,14 @@
             script.addEventListener("load", callback, false);
         } else if (script.readyState) {
             script.onreadystatechange = function () {
-                if (/loaded|complete/.test(this.readyState)) {
+                if (this.readyState == 'complete') {
                     this.onreadystatechange = null;
                     callback();
                 }
             };
         }
-        
-        script.setAttribute('src', src);
+
+        script.src = src;
         headEl.appendChild(script);
     }
 
