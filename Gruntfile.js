@@ -99,10 +99,18 @@ module.exports = function (grunt) {
             }
         },
         npmcopy: {
-            options: {
-                destPrefix: 'tests/vendors'
+            dist: {
+                options: {
+                    destPrefix: ''
+                },
+                files: {
+                    'promise.js': 'promise-polyfill/promise.js'
+                }
             },
             tests: {
+                options: {
+                    destPrefix: 'tests/vendors'
+                },
                 files: {
                     'mocha.css': 'mocha/mocha.css',
                     'mocha.js': 'mocha/mocha.js',
