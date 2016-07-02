@@ -19,8 +19,7 @@
 (function (exports) {
     'use strict';
 
-    var headEl = document.getElementsByTagName('head')[0],
-        ie = false; // /MSIE 9/.test(navigator.userAgent);
+    var headEl = document.getElementsByTagName('head')[0];
 
     /**
      * Normalize a relative module name.
@@ -254,29 +253,9 @@
             script.async = false;
         }
 
-        // Check the script's ability to see the load callback.
-        // https://msdn.microsoft.com/en-us/library/hh180173(v=vs.85).aspx
-        // if (script.addEventListener) {
-        //     script.addEventListener("load", callback, false);
-        // } else if (script.readyState) {
-        //     script.onreadystatechange = function () {
-        //         if (this.readyState == 'complete') {
-        //             this.onreadystatechange = null;
-        //             callback();
-        //         }
-        //     };
-        // }
-        if (ie) {
-            script.onreadystatechange = function () {
-                console.log('onreadystagechange: ', this.readyState);
-                if (this.readyState == 'complete') {
-                    this.onreadystatechange = null;
-                    callback();
-                }
-            };
-        } else {
-            script.addEventListener("load", callback, false);
-        }
+        // Add an event listener for the script load. This should work on IE9+.
+        // If there is ever an issue check this article: https://msdn.microsoft.com/en-us/library/hh180173(v=vs.85).aspx
+        script.addEventListener("load", callback, false);
 
         script.src = src;
         headEl.appendChild(script);
