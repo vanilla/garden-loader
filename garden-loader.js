@@ -19,7 +19,7 @@
 (function (exports) {
     'use strict';
 
-    var headEl = document.getElementsByTagName('head')[0],
+    var headEl = document.body || document.getElementsByTagName('head')[0],
         ie = /MSIE/.test(navigator.userAgent);
 
     /**
