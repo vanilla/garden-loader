@@ -98,7 +98,20 @@ module.exports = function (grunt) {
                 }
             }
         },
+        npmcopy: {
+            options: {
+                destPrefix: 'tests/vendors'
+            },
+            tests: {
+                files: {
+                    'mocha.css': 'mocha/mocha.css',
+                    'mocha.js': 'mocha/mocha.js',
+                    'chai.js': 'chai/chai.js'
+
+                }
+            }
+        }
     });
 
-    grunt.registerTask('default', ['clean', 'babel', 'concat', 'uglify']);
+    grunt.registerTask('default', ['clean', 'babel', 'concat', 'uglify', 'npmcopy']);
 };
