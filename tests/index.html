@@ -22,12 +22,8 @@
 <script>
   System.baseURL = 'fixtures';
 
-  if (!console) {
-    console = {
-      log: function () {
-      }
-    };
-  }
+  console = console || {};
+  console.log = console.log || function () { };
 </script>
 
 <!-- load your test files here -->
