@@ -236,24 +236,38 @@
     define.amd = 1;
 
     function createScriptNode(src, callback) {
-        var node = document.createElement('script');
+        var script = document.createElement('script');
         // use async=false for ordered async?
         // parallel-load-serial-execute http://wiki.whatwg.org/wiki/Dynamic_Script_Execution_Order
-        if (node.async) {
-            node.async = false;
+        if (script.async) {
+            script.async = false;
         }
-        if (false && ie) {
-            node.onreadystatechange = function () {
+
+        // Check the script's ability to see the load callback.
+        // https://msdn.microsoft.com/en-us/library/hh180173(v=vs.85).aspx
+        if (script.addEventListener) {
+            script.addEventListener("load", callback, false);
+        } else if (script.readyState) {
+            script.onreadystatechange = function () {
                 if (/loaded|complete/.test(this.readyState)) {
                     this.onreadystatechange = null;
                     callback();
                 }
             };
-        } else {
-            node.onload = node.onerror = callback;
         }
-        node.setAttribute('src', src);
-        headEl.appendChild(node);
+
+        // if (false && ie) {
+        //     script.onreadystatechange = function () {
+        //         if (/loaded|complete/.test(this.readyState)) {
+        //             this.onreadystatechange = null;
+        //             callback();
+        //         }
+        //     };
+        // } else {
+        //     script.onload = script.onerror = callback;
+        // }
+        script.setAttribute('src', src);
+        headEl.appendChild(script);
     }
 
     /**
