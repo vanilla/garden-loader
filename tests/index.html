@@ -9,7 +9,12 @@
 <div id="mocha"></div>
 <script src="vendors/mocha.js"></script>
 <script src="vendors/chai.js"></script>
-<script>mocha.setup('bdd')</script>
+<script>
+  mocha.setup({
+    ui: 'bdd',
+    timeout: 15000
+  });
+</script>
 
 <!-- load code you want to test here -->
 <script src="../garden-loader.js"></script>
@@ -25,7 +30,6 @@
 <script src="mixed.js"></script>
 
 <script>
-  mocha.setup({timeout: 15000});
   var runner = mocha.run();
 
   var failedTests = [];
