@@ -80,7 +80,8 @@
 
     function register(name, deps, wrapper) {
         if (Array.isArray(name)) {
-            // anounymous module
+            console.log('System.register(anonymous)');
+            // anounymous module.
             anonymousEntry = [register];
             anonymousEntry.push.apply(anonymousEntry, arguments)
             return; // breaking to let the script tag to name it.
@@ -257,6 +258,7 @@
         // }
         if (ie) {
             script.onreadystatechange = function () {
+                console.log('onreadystagechange', this.readyState);
                 if (this.readyState == 'complete') {
                     this.onreadystatechange = null;
                     callback();
