@@ -81,7 +81,7 @@ module.exports = function (grunt) {
                     mangle: false,
                     beautify: true,
                     compress: {
-                        // sequences: true,
+                        sequences: false,
                         // properties: true,
                         // dead_code: true,
                         conditionals: false,
@@ -90,11 +90,11 @@ module.exports = function (grunt) {
                         // unused: true,
                         // hoist_funs: true,
                         // if_return: true,
-                        // join_vars: true,
+                        join_vars: true,
                         // cascade: true,
                         // collapse_vars: true,
                         // warnings: false,
-                        // negate_iife: true,
+                        negate_iife: false,
                         // pure_getters: true,
                         drop_console: true
                     }
@@ -123,7 +123,8 @@ module.exports = function (grunt) {
                         warnings: false,
                         negate_iife: true,
                         pure_getters: true,
-                        drop_console: true
+                        drop_console: true,
+                        passes: 3
                     }
                 },
                 files: {

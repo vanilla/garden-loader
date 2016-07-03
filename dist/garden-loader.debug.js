@@ -276,7 +276,7 @@
         if (!loading[name]) {
             console.log('load(%s)', name);
             loading[name] = new Promise(function (resolve, reject) {
-                createScriptNode((System.baseURL || '') + '/' + name + '.js', function (err) {
+                createScriptNode((System.baseURL || '') + '/' + name + '.js', function () {
                     console.log('loadComplete(%s)', name);
 
                     // The script has loaded, remove the lock.
