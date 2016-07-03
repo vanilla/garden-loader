@@ -1,7 +1,7 @@
 {
   "name": "garden-loader",
   "version": "1.0.1",
-  "description": "A minimal system.js and AMD compatible module loader.",
+  "description": "A minimal ES6 System and AMD compatible module loader.",
   "keywords": [
     "es6",
     "amd",
