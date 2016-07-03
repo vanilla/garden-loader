@@ -1,5 +1,7 @@
 # Garden Loader
 
+[![NPM Package](https://img.shields.io/npm/v/garden-loader.svg?style=flat-square)](https://www.npmjs.com/package/garden-loader)
+
 A minimal ES6 System and AMD compatible module loader.
 
 ## Overview
