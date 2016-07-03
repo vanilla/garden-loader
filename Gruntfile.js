@@ -21,7 +21,8 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            'es6': 'tests/fixtures/es6'
+            'es6': 'tests/fixtures/es6',
+            'dist': 'dist'
         },
         babel: {
             options: {
@@ -67,41 +68,73 @@ module.exports = function (grunt) {
             fixtures: {
                 src: 'tests/fixtures/es6/bundle/*.js',
                 dest: 'tests/fixtures/es6/named.js'
+            },
+            debug: {
+                stripBanners: false,
+                src: 'garden-loader.js',
+                dest: 'dist/garden-loader.debug.js'
             }
         },
         uglify: {
-            options: {
-                mangle: true,
-                beautify: false,
-                compress: {
-                    sequences: true,
-                    properties: true,
-                    dead_code: true,
-                    conditionals: true,
-                    booleans: true,
-                    loops: true,
-                    unused: true,
-                    hoist_funs: true,
-                    if_return: true,
-                    join_vars: true,
-                    cascade: true,
-                    collapse_vars: true,
-                    warnings: false,
-                    negate_iife: true,
-                    pure_getters: true,
-                    drop_console: true
+            dist: {
+                options: {
+                    mangle: false,
+                    beautify: true,
+                    compress: {
+                        // sequences: true,
+                        // properties: true,
+                        // dead_code: true,
+                        conditionals: false,
+                        booleans: false,
+                        loops: false,
+                        // unused: true,
+                        // hoist_funs: true,
+                        // if_return: true,
+                        // join_vars: true,
+                        // cascade: true,
+                        // collapse_vars: true,
+                        // warnings: false,
+                        // negate_iife: true,
+                        // pure_getters: true,
+                        drop_console: true
+                    }
+                },
+                files: {
+                    'dist/garden-loader.js': ['garden-loader.js']
                 }
             },
-            dist: {
+            min: {
+                options: {
+                    mangle: true,
+                    beautify: false,
+                    compress: {
+                        sequences: true,
+                        properties: true,
+                        dead_code: true,
+                        conditionals: true,
+                        booleans: true,
+                        loops: true,
+                        unused: true,
+                        hoist_funs: true,
+                        if_return: true,
+                        join_vars: true,
+                        cascade: true,
+                        collapse_vars: true,
+                        warnings: false,
+                        negate_iife: true,
+                        pure_getters: true,
+                        drop_console: true
+                    }
+                },
                 files: {
-                    "garden-loader.min.js": ['garden-loader.js']
+                    "dist/garden-loader.min.js": ['garden-loader.js']
                 }
             }
         },
         npmcopy: {
             dist: {
                 options: {
-                    destPrefix: ''
+                    destPrefix: 'dist'
                 },
                 files: {
                     'promise.js': 'promise-polyfill/promise.js'

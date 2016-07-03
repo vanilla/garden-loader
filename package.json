@@ -26,9 +26,7 @@
 	},
 	"license": "MIT",
 	"file": [
-		"garden-loader.js",
-		"garden-loader.min.js",
-		"promise.js"
+		"dist/"
 	],
 	"devDependencies": {
 		"babel-plugin-transform-es2015-modules-systemjs": "^6.9.0",
