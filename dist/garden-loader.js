@@ -100,7 +100,10 @@
                     if ("object" != typeof mod.exports) mod.exports = {
                         "default": mod.exports
                     };
-                    if (r) exports["default"] = r;
+                    if ("object" == typeof r) {
+                        r["default"] = r["default"] || r;
+                        mod.exports = exports = r;
+                    } else if (r) exports["default"] = r;
                     mod.lock = true;
                     mod.dependants.forEach(function(moduleName) {
                         if (internalRegistry[moduleName] && !internalRegistry[moduleName].lock) internalRegistry[moduleName].update(name, exports);
