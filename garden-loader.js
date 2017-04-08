@@ -1,5 +1,5 @@
 /**
- * A ES6 System module loader polyfill.
+ * An ES6 System module loader polyfill.
  *
  * This is based off the [es6-micro-loader](https://github.com/caridy/es6-micro-loader).
  *
@@ -248,7 +248,7 @@
     }
 
     // Mark this an AMD definer so that UMD formatted modules will pick it up.
-    define.amd = 1;
+    define.amd = { jQuery: true };
 
     function createScriptNode(src, callback) {
         var script = document.createElement('script');

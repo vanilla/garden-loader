@@ -152,7 +152,9 @@
         return load(normalizedName).then(loadDependencies).then(ensuredExecute);
     }
     var headEl = document.getElementsByTagName("head")[0], loading = Object.create(null), executed = Object.create(null), internalRegistry = Object.create(null), externalRegistry = Object.create(null), anonymousEntries = [];
-    define.amd = 1;
+    define.amd = {
+        jQuery: true
+    };
     var System = {
         set: set,
         get: get,
