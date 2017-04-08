@@ -1,6 +1,6 @@
 {
   "name": "garden-loader",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A minimal ES6 System and AMD compatible module loader.",
   "keywords": [
     "es6",
@@ -31,6 +31,7 @@
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-systemjs": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.24.1",
     "chai": "^3.5.0",
     "grunt": "^1.0.1",
     "grunt-babel": "^6.0.0",
@@ -44,6 +45,7 @@
     "load-grunt-tasks": "^3.5.0",
     "mocha": "^2.5.3",
     "promise-polyfill": "^5.2.1",
+    "react": "^15.5.3",
     "time-grunt": "^1.3.0"
   }
 }

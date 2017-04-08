@@ -33,6 +33,7 @@ module.exports = function (grunt) {
                 "moduleIds": false,
                 "moduleRoot": null,
                 "presets": [
+                    "react",
                     "es2015"
                 ],
                 "plugins": [
@@ -43,7 +44,7 @@ module.exports = function (grunt) {
                 files: [{
                     "expand": true,
                     "cwd": "tests/fixtures/src",
-                    "src": ["*.js"],
+                    "src": ["*.js", "*.jsx"],
                     "dest": "tests/fixtures/es6",
                     "ext": ".js"
                 }]
@@ -148,8 +149,8 @@ module.exports = function (grunt) {
                 files: {
                     'mocha.css': 'mocha/mocha.css',
                     'mocha.js': 'mocha/mocha.js',
-                    'chai.js': 'chai/chai.js'
-
+                    'chai.js': 'chai/chai.js',
+                    '../fixtures/react.js': 'react/dist/react.js'
                 }
             }
         }

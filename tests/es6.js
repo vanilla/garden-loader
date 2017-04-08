@@ -48,4 +48,10 @@ describe('ES6 Loading', function () {
             assert.isTrue(System.has('es6/has'));
         });
     });
+
+    it('System.import() should import sub dependencies of AMD modules.', function () {
+        return System.import('es6/component').then(function (mod) {
+            assert.isTrue(mod.PropTypes !== undefined);
+        });
+    });
 });
