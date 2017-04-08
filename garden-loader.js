@@ -228,11 +228,14 @@
                 var r = factory.apply(null, depValues);
 
                 // Box the default in the case that module.exports has been set.
-                if (typeof mod.exports != 'object') {
+                if (typeof mod.exports !== 'object') {
                     mod.exports = {default: mod.exports};
                 }
                 // An AMD return value is the default export.
-                if (r) {
+                if (typeof r === 'object') {
+                    r.default = r.default || r;
+                    mod.exports = exports = r;
+                } else if (r) {
                     exports.default = r;
                 }
                 // Push this module back into its dependants.
