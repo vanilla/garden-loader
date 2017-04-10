@@ -324,29 +324,35 @@
         console.log('loadDependencies(%s)', name, mod.deps);
 
         // Resolve all of the dependencies of the module.
-        return Promise.all(mod.deps.map(function (dep) {
-            if (externalRegistry[dep] || /module|exports|require/.test(dep)) {
-                // The dependency has been externally set so it should be ready.
-                return Promise.resolve(dep);
-            } else if (depMod = internalRegistry[dep]) {
-                if (executed[dep]) {
-                    // The dependency has been loaded and executed and is ready.
+        var key = name + '!';
+        if (loading[key]) {
+            console.log('Waiting for loadDependencies(%s)', name);
+            return loading[key];
+        } else {
+            return loading[key] = Promise.all(mod.deps.map(function (dep) {
+                if (externalRegistry[dep] || /module|exports|require/.test(dep)) {
+                    // The dependency has been externally set so it should be ready.
                     return Promise.resolve(dep);
-                } else {
-                    // Mark as seen to prevent infinite recursion.
-                    executed[dep] = true;
-                    // The dependency hasn't been executed. Check its dependencies.
-                    return loadDependencies(dep).then(function (name) {
-                        executed[dep] = false;
+                } else if (depMod = internalRegistry[dep]) {
+                    var key = dep + '!'; // add '!' so we can use the same loading var for dependencies too.
+
+                    if (executed[dep] || loading[key]) {
+                        // The dependencies are being loaded through another process.
                         return name;
-                    });
+                    } else {
+                        // The dependency hasn't been executed. Check its dependencies.
+                        return loading[key] = loadDependencies(dep).then(function (name) {
+                            loading[key] = Promise.resolve(name);
+                            return name;
+                        });
+                    }
                 }
-            }
-            // Load the dependencies and then recursively load its dependencies.
-            return load(dep).then(loadDependencies);
-        })).then(function () {
-            return name;
-        });
+                // Load the dependency and then recursively load its dependencies.
+                return load(dep).then(loadDependencies);
+            })).then(function () {
+                return name;
+            });
+        }
     }
 
     /**
