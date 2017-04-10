@@ -136,11 +136,13 @@
     }
     function loadDependencies(name) {
         var depMod, mod = internalRegistry[name];
-        if (!mod) return Promise.reject(new Error("Module " + name + " not loaded")); else return Promise.all(mod.deps.map(function(dep) {
-            if (externalRegistry[dep] || /module|exports|require/.test(dep)) return Promise.resolve(dep); else if (depMod = internalRegistry[dep]) if (executed[dep]) return Promise.resolve(dep); else {
-                executed[dep] = true;
-                return loadDependencies(dep).then(function(name) {
-                    executed[dep] = false;
+        if (!mod) return Promise.reject(new Error("Module " + name + " not loaded"));
+        var key = name + "!";
+        if (loading[key]) return loading[key]; else return loading[key] = Promise.all(mod.deps.map(function(dep) {
+            if (externalRegistry[dep] || /module|exports|require/.test(dep)) return Promise.resolve(dep); else if (depMod = internalRegistry[dep]) {
+                var key = dep + "!";
+                if (executed[dep] || loading[key]) return name; else return loading[key] = loadDependencies(dep).then(function(name) {
+                    loading[key] = Promise.resolve(name);
                     return name;
                 });
             }

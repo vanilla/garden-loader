@@ -1,9 +1,9 @@
 "use strict";
 
-System.register(["react", "./sub-component"], function (_export, _context) {
+System.register(["react"], function (_export, _context) {
     "use strict";
 
-    var React, SubComponent, _createClass, Component;
+    var React, PropTypes, _createClass, SubComponent;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -38,8 +38,7 @@ System.register(["react", "./sub-component"], function (_export, _context) {
     return {
         setters: [function (_react) {
             React = _react.default;
-        }, function (_subComponent) {
-            SubComponent = _subComponent.default;
+            PropTypes = _react.PropTypes;
         }],
         execute: function () {
             _createClass = function () {
@@ -60,32 +59,47 @@ System.register(["react", "./sub-component"], function (_export, _context) {
                 };
             }();
 
-            _export("React", React);
+            _export("PropTypes", PropTypes);
 
-            Component = function (_React$Component) {
-                _inherits(Component, _React$Component);
+            SubComponent = function (_React$Component) {
+                _inherits(SubComponent, _React$Component);
 
-                function Component() {
-                    _classCallCheck(this, Component);
+                function SubComponent(props) {
+                    _classCallCheck(this, SubComponent);
 
-                    return _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).apply(this, arguments));
+                    var _this = _possibleConstructorReturn(this, (SubComponent.__proto__ || Object.getPrototypeOf(SubComponent)).call(this, props));
+
+                    _this.state = {
+                        tracks: [],
+                        hasMoreItems: true,
+                        nextHref: null
+                    };
+                    return _this;
                 }
 
-                _createClass(Component, [{
+                _createClass(SubComponent, [{
                     key: "render",
                     value: function render() {
                         return React.createElement(
                             "div",
                             null,
-                            React.createElement(SubComponent, null)
+                            this.props.title
                         );
                     }
                 }]);
 
-                return Component;
+                return SubComponent;
             }(React.Component);
 
-            _export("default", Component);
+            _export("default", SubComponent);
+
+            SubComponent.defaultProps = {
+                title: 'Sub '
+            };
+
+            SubComponent.propTypes = {
+                title: PropTypes.string
+            };
         }
     };
 });
